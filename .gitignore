@@ -1,0 +1,5 @@
+__pycache__/
+templates/index_no_interp.html
+templates/index_old_old.html
+templates/index_old.html
+gas_table.db

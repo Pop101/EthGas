@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Home - Historical Gas API</title>
+    <meta name="description" content="An API page for historical ethereum gas prices">
+    <link rel="stylesheet" href="static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-dark navbar-custom">
+        <div class="container"><a class="navbar-brand" href="#">Historical Gas API</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navbarResponsive"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="nav navbar-nav ml-auto">
+                    <li class="nav-item"><a class="nav-link" href="#api">API</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <header class="masthead text-center text-white">
+        <div style="padding: 5%;"><div class="card" style="height:500px; width: 100%;">
+    <div class="card-body">
+        <canvas id="canvas"></canvas>
+    </div>
+</div></div>
+    </header>
+    <section>
+        <div style="margin: 3%;">
+            <h1>Historical Gas API</h1>
+            <p>An API for accessing Ethereum gas prices from the past year.<br>Currently, the API is not rate-limited and updates once every five seconds. It's uptime is not 100%, so don't rely on it.</p>
+        </div>
+    </section>
+    <section id="api">
+        <div style="padding: 3%;">
+            <div style="height: 30px;"></div>
+            <h2>Endpoints</h2>
+            <div class="card">
+                <div class="card-header">
+                    <ul class="nav nav-tabs card-header-tabs" role="tablist">
+                        <li class="nav-item"><a class="nav-link active" id="item-1-1-tab" data-toggle="tab" role="tab" aria-controls="item-1-1" aria-selected="true" href="#item-1-1">/gas</a></li>
+                        <li class="nav-item"><a class="nav-link" id="item-1-2-tab" data-toggle="tab" role="tab" aria-controls="item-1-2" aria-selected="false" href="#item-1-2">/start</a></li>
+                    </ul>
+                </div>
+                <div class="card-body">
+                    <div id="nav-tabContent" class="tab-content">
+                        <div id="item-1-1" class="tab-pane fade show active" role="tabpanel" aria-labelledby="item-1-1-tab">
+                            <h4>Gas</h4>
+                            <p>Get the current low, average, and high gas costs</p><code>Example Response:<br>{<br>&nbsp;&nbsp;"status": 1,<br>&nbsp; "message": "OK",<br>&nbsp;&nbsp;"result": {<br>&nbsp;&nbsp;&nbsp;&nbsp;"11554042": {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"avg": 51.0,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"date": 1609313299,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"high": 123.0,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"low": 43.0<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;}<br>}<br></code>
+                            <p>Optional Arguments:</p>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Argument</th>
+                                            <th>Description</th>
+                                            <th>Type</th>
+                                            <th>Example</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>num</td>
+                                            <td>Specifies the number of results to return. Defaults to 1</td>
+                                            <td>integer</td>
+                                            <td>/gas?num=5</td>
+                                        </tr>
+                                        <tr>
+                                            <td>date</td>
+                                            <td>Specifies the most recent date returned. Defaults to the most recent value</td>
+                                            <td>integer, UNIX timestamp</td>
+                                            <td>/gas?date=<br>1609313299<br></td>
+                                        </tr>
+                                        <tr>
+                                            <td>block</td>
+                                            <td>Specifies the most recent block number returned. Defaults to the most recent value and overrides date<br></td>
+                                            <td>integer</td>
+                                            <td>/gas?block=<br>11554042<br></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div id="item-1-2" class="tab-pane fade" role="tabpanel" aria-labelledby="item-1-2-tab">
+                            <h4>Start</h4>
+                            <p>Gets the date and block of the oldest stored entry</p><code>Example Response:<br>{<br>&nbsp;&nbsp;"message": "OK",<br>&nbsp;&nbsp;"result": {<br>&nbsp;&nbsp;&nbsp;&nbsp;"firstBlock": 11551387,<br>&nbsp;&nbsp;&nbsp;&nbsp;"firstDate": 1609278395<br>&nbsp;&nbsp;},<br>&nbsp;&nbsp;"status": 1<br>}<br></code>
+                            <p>Optional Arguments: None</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="py-5 bg-black">
+        <div class="container">
+            <p class="text-center text-white m-0 small">Copyright&nbsp;© Historical Gas API 2020</p>
+        </div>
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+    <script src="static/js/script.min.js"></script>
+</body>
+
+</html>
